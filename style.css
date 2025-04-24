@@ -1,0 +1,371 @@
+/* --- START OF FILE style.css --- */
+
+/* Basic Reset & Body Styles */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+html, body {
+    height: 100%;
+    font-family: 'Inter', sans-serif;
+    /* Outer background color */
+    background-color: #1a1a1a;
+    color: #f5f5f5;
+    overflow: hidden; /* Prevent scrolling on the body */
+}
+
+/* Screen Base Styles */
+.screen {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    /* display: none; */ /* Hide screens by default - Kept from user code, but ensure .active works */
+    opacity: 0;
+    transition: opacity 0.3s ease-in-out;
+    /* Base flex settings for screens */
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.screen.active {
+    display: flex; /* Show active screen */
+    opacity: 1;
+}
+
+/* --- Loading Screen Styles --- */
+#loading-screen {
+    background-color: #000; /* Loading screen is black */
+    justify-content: center; /* Center content vertically */
+    padding-top: 0;
+}
+.loading-content {
+    text-align: center;
+    position: relative;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+.insta-logo { /* Main IG logo on loading */
+    width: 80px;
+    height: 80px;
+}
+.from-meta-logo { /* From Meta image */
+    position: absolute;
+    bottom: 30px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 70px; /* Adjust as needed */
+    height: auto;
+}
+/* --- End Loading Screen --- */
+
+
+/* --- Main View (#main-view specific styles) --- */
+#main-view {
+    background-color: transparent; /* Let body background show through */
+    justify-content: flex-start; /* Aligns flex items to the top */
+    align-items: center;     /* Keep horizontal centering */
+    padding-top: 50px;       /* Keep space for the fixed header */
+    height: 100vh;           /* Ensure main view takes full viewport height */
+    box-sizing: border-box;  /* Include padding in height calculation */
+    position: relative;      /* Needed for absolute child positioning if used */
+}
+
+/* --- Page Header (Top Bar: Instagram text logo + Close button) --- */
+#page-header {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px 15px;
+    background-color: #1a1a1a; /* Match body background */
+    z-index: 100;
+    height: 50px;
+}
+
+.page-logo { /* Instagram text logo */
+    height: 80px; /* This seems large for a 50px header, adjust if needed */
+    padding-top: 13px; /* This compensates for large height */
+    width: auto;
+}
+
+.close-story { /* X button in top right */
+    background: none; border: none; color: #ccc; font-size: 24px;
+    font-weight: normal; cursor: pointer; padding: 5px; line-height: 1;
+}
+/* --- End Page Header --- */
+
+
+/* --- Story Container (Main black box with background image) --- */
+#story-container {
+    width: 100%;
+    max-width: 495px;
+    height: calc(100vh - 70px); /* Adjust based on header/footer if needed */
+    max-height: 935px;
+    border-radius: 10px;
+    display: flex;
+    flex-direction: column;
+    position: relative; /* Essential for pseudo-elements */
+    overflow: hidden;
+    margin-top: 5px; /* Small margin below header padding area */
+    transition: max-width 0.3s ease, max-height 0.3s ease;
+
+    /* Default Background */
+    background-color: #000;
+    z-index: 50; /* Keep below fixed header */
+}
+
+/* Active background state */
+#story-container.story-background-active {
+    background-image: url('storyimage.png'); /* Ensure path is correct */
+    background-size: cover;
+    background-position: center center;
+    background-repeat: no-repeat;
+}
+
+/* Top Gradient Overlay (Only when background is active) */
+/* NO Bottom Gradient Overlay */
+
+
+/* --- Progress Bar Refinements --- */
+.story-progress-wrapper {
+    padding: 10px 15px 5px 15px;
+    width: 100%;
+    background-color: transparent;
+    position: relative;
+    z-index: 11;
+    box-sizing: border-box;
+    margin-top: 18px; /* Space above progress bar */
+    margin-bottom: 1px;
+}
+
+/* Outer track of the progress bar */
+.story-progress-bar {
+    height: 2.5px;
+    width: 100%;
+    background-color: rgba(255, 255, 255, 0.3); /* Dim white/grey track */
+    border-radius: 2px;
+    overflow: hidden;
+}
+
+/* Inner bar that shows progress */
+.progress-bar-inner {
+    height: 100%;
+    width: 0%; /* Start at 0 width */
+    background-color: #f5f5f5; /* Bright white for progress */
+    border-radius: 2px;
+    transition: width 0.1s linear; /* Optional: slight transition */
+}
+
+/* Animation definition */
+@keyframes progressBarAnimation {
+    from { width: 0%; }
+    to { width: 100%; }
+}
+
+/* Class to trigger animation */
+.progress-bar-inner.animate {
+    animation: progressBarAnimation 13s linear forwards;
+}
+
+
+/* --- Story Header Styles --- */
+.story-header {
+    flex-shrink: 0; flex-grow: 0;
+    position: relative;
+    z-index: 10;
+    background-color: transparent;
+    padding: 5px 15px 10px 15px;
+    margin-top: 6px; /* Space between progress bar and header */
+    display: flex; justify-content: space-between; align-items: center;
+    box-sizing: border-box;
+}
+
+/* Header Content Styles */
+.story-header .user-info { display: flex; align-items: center; flex-grow: 1; margin-right: 15px; }
+.profile-pic-small { width: 36px; height: 36px; border-radius: 50%; object-fit: cover; border: 2px solid #fff; margin-right: 10px; background-color: #555; }
+.user-details { display: flex; flex-direction: column; justify-content: center; line-height: 1.3; }
+.user-line-1 { display: flex; align-items: center; gap: 5px; } /* Removed font-size/weight, apply below */
+
+/* Specific styles for username, verified badge, time */
+.user-line-1 span:first-child { /* Username 'openai' */
+     font-size: 13.5px; /* Slightly smaller */
+     font-weight: 500; /* Medium weight */
+     color: #f5f5f5;
+}
+.verified-badge-img { width: 14px; height: 14px; vertical-align: middle; }
+.user-line-1 .time { font-size: 14px; font-weight: 400; color: #a8a8a8; margin-left: 3px; }
+
+/* Style adjustment for music info */
+.music-info {
+    font-size: 13px;
+    color: #f5f5f5;
+    display: flex;
+    align-items: center; /* Vertically align text and animation */
+    gap: 6px; /* Space between animation and text */
+    margin-top: 2px;
+}
+.music-info span {
+     font-weight: 400; /* Regular weight */
+}
+
+
+/* --- UPDATED: Music Animation Styles --- */
+
+/* Container for the bars */
+.music-animation-bars {
+    width: 12px;  /* Overall width of the animation */
+    height: 12px; /* Define the max height container */
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end; /* Bars sit on the bottom */
+    position: relative;
+}
+
+/* Individual bars */
+.music-bar {
+    width: 2px;
+    height: 100%; /* Set height to fill container (max height) */
+    background-color: #f5f5f5;
+    border-radius: 2px;
+    /* --- IMPORTANT: Set transform origin --- */
+    transform-origin: center bottom; /* Scale vertically from the bottom center */
+    /* Remove direct height settings */
+}
+
+/* --- Set initial scale --- */
+.bar-1, .bar-3 {
+    transform: scaleY(0.3); /* Start outer bars short (30% of full height) */
+}
+.bar-2 {
+     transform: scaleY(1); /* Start middle bar tall (100% of full height) */
+}
+
+
+/* --- NEW Keyframe Animation using scaleY --- */
+@keyframes scaleUpDown {
+    0%, 100% {
+        transform: scaleY(0.3); /* Short state */
+    }
+    50% {
+        transform: scaleY(1);   /* Tall state */
+    }
+}
+
+/* --- Apply animation only when 'playing' class is added --- */
+/* Apply to outer bars directly */
+.music-animation-bars.playing .bar-1,
+.music-animation-bars.playing .bar-3 {
+    /* Use the single keyframe animation */
+    animation: scaleUpDown 1s ease-in-out infinite; /* Adjust duration (0.7s) as needed */
+    /* Starts short, goes tall, back to short */
+}
+
+/* Apply to middle bar with a delay */
+.music-animation-bars.playing .bar-2 {
+    /* Use the same keyframe animation */
+    animation: scaleUpDown 1s ease-in-out infinite;
+    /* --- IMPORTANT: Add delay to offset the cycle --- */
+    animation-delay: 0.5s; /* Half of the duration */
+    /* Starts tall (due to delay), goes short, back to tall */
+}
+
+/* REMOVE old keyframes */
+/* @keyframes animateBarShortTallShort { ... } */
+/* @keyframes animateBarTallShortTall { ... } */
+
+/* --- End Music Animation Styles --- */
+
+
+.controls { display: flex; gap: 18px; font-size: 18px; color: #fff; flex-shrink: 0; }
+.controls i { cursor: pointer; }
+
+
+/* --- Story Sections Base --- */
+.story-section {
+    display: none; flex-direction: column; position: relative;
+    z-index: 10; /* Ensure section content is above gradients */
+    background-color: transparent;
+}
+.story-section.active-section { display: flex; }
+
+
+/* --- Confirmation Content --- */
+#confirmation-content {
+    flex-grow: 1;       /* Takes up available space when active */
+    min-height: 0;      /* Flexbox best practice */
+    justify-content: center; /* Center content vertically */
+    align-items: center;    /* Center content horizontally */
+    text-align: center;
+    padding: 20px;
+    color: #f5f5f5;
+    background-color: transparent; /* Ensure transparency */
+    z-index: 10; /* Ensure confirmation is above gradients */
+}
+/* Styles for elements within confirmation */
+/* .profile-pic-large rule removed as element was deleted */
+#confirmation-content h2 { font-size: 16px; font-weight: 600; margin-bottom: 10px; }
+#confirmation-content p { font-size: 14px; color: #a8a8a8; margin-bottom: 25px; max-width: 280px; line-height: 1.4; }
+#view-story-button { background-color: transparent; color: #f5f5f5; border: 1px solid #555; padding: 9px 20px; border-radius: 8px; font-size: 14px; font-weight: 600; cursor: pointer; transition: background-color 0.2s ease; }
+#view-story-button:hover { background-color: #282828; }
+
+
+/* --- Actual Story Content (Spacer) --- */
+#actual-story-content {
+    flex-grow: 1; min-height: 0;
+    background-color: transparent;
+}
+
+
+/* --- Story Footer --- */
+#story-footer {
+    flex-grow: 0; flex-shrink: 0;
+    justify-content: flex-end;
+    padding: 8px 15px 20px 15px; 
+    background-color: transparent; /* Ensure transparent */
+    color: #fff;
+    z-index: 15;
+}
+
+/* Reply Area Layout */
+.reply-area {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+}
+
+/* Input Field Styling */
+.reply-area input {
+    flex-grow: 1;
+    background-color: transparent;
+    border: 1.3px solid #ffffff; /* White border */
+    border-radius: 27px; /* Increased rounding */
+    padding: 13px 15px; /* Increased padding */
+    color: #ffffff;
+    font-size: 14px;
+}
+
+/* Placeholder Styling */
+.reply-area input::placeholder {
+    color: #ffffff; /* White placeholder based on user input */
+}
+
+/* Icon Styling */
+.reply-area i {
+    font-size: 24px; /* Increased size */
+    color: #ffffff;
+    cursor: pointer;
+}
+
+/* --- END OF FILE style.css --- */

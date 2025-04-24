@@ -1,0 +1,9 @@
+{
+  "redirects": [
+    {
+      "source": "/",
+      "destination": "/stories/openai",
+      "permanent": true
+    }
+  ]
+}

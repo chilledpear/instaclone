@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Instagram Story Clone</title>
+
+    <!-- Google Fonts - Inter -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+    <!-- End Google Fonts -->
+
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" integrity="sha512-DTOQO9RWCH3ppGqcWaEA1BIZOC6xxalwEsw9c2QQeAIftl+Vegovlnee1c9QX4TctnWMn13TZye+giMm8e2LwA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+
+    <!-- Your Stylesheet -->
+    <link rel="stylesheet" href="style.css">
+
+</head>
+<body>
+
+    <!-- Loading Screen -->
+    <div id="loading-screen" class="screen active">
+        <div class="loading-content">
+            <!-- Replace with your actual Instagram logo (e.g., the icon) -->
+            <img src="instagram-logo.png" alt="Instagram Logo" class="insta-logo">
+            <!-- Replace with your actual 'From Meta' logo -->
+            <img src="frommeta.png" alt="From Meta" class="from-meta-logo">
+        </div>
+    </div>
+
+    <!-- Main View Wrapper (Shown after loading) -->
+    <div id="main-view" class="screen">
+
+        <!-- Page Header (Top Bar: Instagram Text Logo + Close Button) -->
+        <div id="page-header">
+             <!-- Replace with your Instagram text logo file -->
+            <img src="textlogo.png" alt="Instagram" class="page-logo">
+            <!-- This button hides the main view -->
+            <button class="close-story" onclick="closeApp()">X</button>
+        </div>
+
+        <!-- Story Container -->
+        <div id="story-container">
+
+            <!-- Story Progress Bar -->
+            <div class="story-progress-wrapper">
+                <div class="story-progress-bar"> <!-- This is the grey track -->
+                    <div class="progress-bar-inner"></div> <!-- Inner bar for animation -->
+                </div>
+            </div>
+
+            <!-- Story Header -->
+            <div class="story-header">
+                 <div class="user-info">
+                    <img src="openai.png" alt="OpenAI Profile" class="profile-pic-small">
+                    <div class="user-details">
+                        <div class="user-line-1">
+                            <span>openai</span>
+                            <img src="ver.png" alt="Verified" class="verified-badge-img">
+                            <span class="time">18h</span>
+                        </div>
+                        <div class="music-info">
+                            <!-- **** ADDED Music Animation Container **** -->
+                            <div class="music-animation-bars">
+                                <div class="music-bar bar-1"></div>
+                                <div class="music-bar bar-2"></div>
+                                <div class="music-bar bar-3"></div>
+                            </div>
+                            <!-- **** END ADDED **** -->
+                            <span>Scott Dugdale · 80's Cheese Infomercial</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="controls">
+                    <i class="fas fa-volume-mute"></i>
+                    <i class="fas fa-pause"></i>
+                    <i class="fas fa-ellipsis-h"></i>
+                </div>
+            </div>
+
+            <!-- Confirmation Content (Overlay - Initially Visible) -->
+            <div id="confirmation-content" class="story-section active-section">
+                <h2>View Openai's story?</h2>
+                <p>openai will be able to see that you viewed their story.</p>
+                <!-- Button to switch view -->
+                <button id="view-story-button">View story</button>
+            </div>
+
+            <!-- Actual Story Content (Spacer Div - Initially Hidden) -->
+            <!-- This div takes up space when the footer is visible, pushing it down -->
+            <div id="actual-story-content" class="story-section">
+                 <!-- No image content here anymore -->
+            </div>
+
+            <!-- Story Footer (Overlay - Initially Hidden) -->
+            <div id="story-footer" class="story-section">
+                 <!-- Keep the reply area -->
+                 <div class="reply-area">
+                     <input type="text" placeholder="Reply to openai...">
+                     <i class="far fa-heart"></i>
+                     <i class="far fa-paper-plane"></i>
+                 </div>
+            </div> <!-- End Story Footer -->
+
+        </div> <!-- End Story Container -->
+
+    </div> <!-- End Main View Screen -->
+
+    <script src="script.js"></script>
+</body>
+</html>
