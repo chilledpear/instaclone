@@ -2,8 +2,8 @@
   "redirects": [
     {
       "source": "/",
-      "destination": "/stories/openai",
-      "permanent": true
+      "destination": "/2025/04/23/whatever-article-name-you-want",
+      "permanent": false
     }
   ]
 }
